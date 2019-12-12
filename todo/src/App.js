@@ -2,12 +2,13 @@ import React from 'react';
 import './App.css';
 import Todos from './components/Todo';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component {
  
   state={
        todos:[]
   }
-  componentDidMount(){
+  componentDidMount(){   
     axios.get('https://jsonplaceholder.typicode.com/todos/')
     .then(res=>{ const result= res.data; this.setState({todos:result})})
     .catch(err =>{console.log(err)})
@@ -22,8 +23,7 @@ class App extends React.Component {
        }
     )})
    }
-   deleteItem=(id)=>{
-     console.log(id)
+   deleteItem=(id)=>{   
      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(
       res=>{ const result= res.data;  console.log(result)
         this.setState({todos:[...this.state.todos.filter((todo)=>
@@ -34,7 +34,7 @@ class App extends React.Component {
    }
   render(){   
     return (
-      <div className="App">
+      <div className="container">
      <Todos todos={this.state.todos} markComplete={this.markComplete} deleteItem={this.deleteItem}/>
       </div>
       
