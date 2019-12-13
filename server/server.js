@@ -1,4 +1,5 @@
 //https://www.codementor.io/@wapjude/creating-a-simple-rest-api-with-expressjs-in-5min-bbtmk51mq
+// folow https://www.codementor.io/@julieisip/learn-rest-api-using-express-js-and-mysql-db-ldflyx8g2
 var express = require('express'),
 app = express(),
 bodyParser = require('body-parser');
