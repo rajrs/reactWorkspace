@@ -3,8 +3,14 @@ import './App.css';
 import Todos from './components/Todo';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-class App extends React.Component {
- 
+import Navbar from './components/Navbar';
+import About from './components/About';
+import {
+
+  Switch,
+  Route
+} from "react-router-dom";
+class App extends React.Component { 
   state={
        todos:[]
   }
@@ -33,11 +39,23 @@ class App extends React.Component {
     
    }
   render(){   
-    return (
-      <div className="container">
-     <Todos todos={this.state.todos} markComplete={this.markComplete} deleteItem={this.deleteItem}/>
+    return (<>
+   
+    <Navbar />
+    
+        <div className="container">
+        <Switch>
+          <Route exact path="/">
+          <Todos todos={this.state.todos} markComplete={this.markComplete} deleteItem={this.deleteItem}/>
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+         
+        </Switch>
       </div>
-      
+     
+      </>
     );
   }
   
