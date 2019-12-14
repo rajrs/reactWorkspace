@@ -1,6 +1,6 @@
 'use strict';
 
-var Task = require('../model/appModel.js');
+var Task = require('./model/appModel');
 
 exports.create_a_task = function(req, res) {
     var new_task = new Task(req.body);
