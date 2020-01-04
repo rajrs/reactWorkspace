@@ -4,9 +4,9 @@
 var express = require('express'),
 app = express(),
 bodyParser = require('body-parser'),
- mysql = require('mysql')
- Mycon = require('./db');
-port = process.env.PORT || 3000;
+ //mysql = require('mysql')
+  //Mycon = require('./db');
+  port = process.env.PORT || 3000;
 
 /*const mysqlCon = mysql.createConnection({
     host     : 'localhost',
@@ -21,19 +21,14 @@ port = process.env.PORT || 3000;
     console.log('You are now connected...')
   });*/
   //console.log('connection',mysqlCon.state);
-  Mycon.query('SELECT * from tasks', function (err, rows, fields) {
+  /*Mycon.query('SELECT * from tasks', function (err, rows, fields) {
      if (err) throw err  
-        //console.log('The solution is: ', rows)   
-    })
+        console.log('The solution is: ', rows)   
+    })*/
 
 //console.log('connection',mysqlCon.state);
 var server= app.listen(port);
-var host = server.address().address;  
-var port = server.address().port;  
-  //console.log(server);
-  console.log('Example app listening at http://%s:%s', host, port);  
-  console.log('API server started on: ' + port);
-
+console.log('API server started on: ' + port);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.get('/', function (req, res) {
@@ -49,7 +44,7 @@ app.post('/login', function (req, res) {
 })
 app.get('/users/:userId/books/:bookId', function (req, res) {
   console.log(req.route.path,)
-  res.send(`<h1>${req.method} ${req.params.userId}</h1>`);
+  res.send(`<h1>${req.method} ${req.params.userId} book id${req.params.bookId}</h1>`);
 })
-//var routes = require('./route/appRoute'); //importing route
-//routes(app); //register the route
+var routes = require('./route/appRoute'); //importing route
+routes(app); //register the route
