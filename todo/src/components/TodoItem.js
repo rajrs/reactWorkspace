@@ -11,7 +11,7 @@ export class TodoItem extends Component {
     }
     
     render() {
-        const {id,title}= this.props.todo;
+        const {id,task}= this.props.todo;
         return (
             <div>
             <div class="row">
@@ -21,7 +21,7 @@ export class TodoItem extends Component {
                     <div className="col">
                         <div className="row">                        
                         <div className="col-6">
-                        <p className={this.checkStyle()}>{title}</p>
+                        <p className={this.checkStyle()}>{task}</p>
                         </div>
                         <div className="col-6">
                         <span className="btn btn-default" onClick={this.props.deleteItem.bind(this,id)}>x</span>

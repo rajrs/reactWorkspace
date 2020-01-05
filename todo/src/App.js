@@ -15,8 +15,8 @@ class App extends React.Component {
        todos:[]
   }
   componentDidMount(){   
-    axios.get('https://jsonplaceholder.typicode.com/todos/')
-    .then(res=>{ const result= res.data; this.setState({todos:result})})
+    axios.get('http://localhost:3030/tasks')
+    .then(res=>{  const result= res.data.result; this.setState({todos:result})})
     .catch(err =>{console.log(err)})
   }
   markComplete =(id)=>{ 

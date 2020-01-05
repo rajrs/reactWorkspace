@@ -6,7 +6,7 @@ app = express(),
 bodyParser = require('body-parser'),
  //mysql = require('mysql')
   //Mycon = require('./db');
-  port = process.env.PORT || 3000;
+  port = process.env.PORT || 3030;
 
 /*const mysqlCon = mysql.createConnection({
     host     : 'localhost',
@@ -31,6 +31,11 @@ var server= app.listen(port);
 console.log('API server started on: ' + port);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.get('/', function (req, res) {
     res.sendFile('index.html', { root: __dirname })
 })

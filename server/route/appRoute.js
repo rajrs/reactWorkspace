@@ -52,7 +52,7 @@ function create_task(req,res){
       console.log("error: ", err);
       return res.status(500).send(err);
     }
-    res.json({"message":"new task created successfully "})
+    res.json({"message":"New task created successfully "})
   })
 }
 function edit_task(req,res){
@@ -66,7 +66,7 @@ function edit_task(req,res){
                 return res.status(500).send(err);
             }
             console.log(result);
-            res.json({"message":"task Updated successfully"})
+            res.json({"message":"Task Updated successfully"})
         });
 }
 function delete_task(req,res){  
@@ -77,7 +77,7 @@ function delete_task(req,res){
         return res.status(500).send(err);
     }
    // console.log(result);
-    res.json({"message":"task deleted successfully"})
+    res.json({"message":"Task deleted successfully"})
 });
   
 }
