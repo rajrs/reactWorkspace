@@ -10,7 +10,8 @@ module.exports = function (app) {
 app.route('/tasks/:taskId')
 .get(get_task_by_id)
 .put(edit_task)
-.delete(delete_task);
+.delete(delete_task)
+//.put(update_status);
   /*app.route('/tasks/:taskId')
    .get(todoList.read_a_task)
    .put(todoList.update_a_task)
@@ -55,12 +56,10 @@ function create_task(req,res){
     res.json({"message":"New task created successfully "})
   })
 }
-function edit_task(req,res){
- 
-  let task = req.body.task;
-  let status= req.body.status
-  let query = "UPDATE `tasks` SET `task` = '" + task + "', `status` = '" + status + "' WHERE `id` = '" + req.params.taskId + "'";
- // console.log(query)     
+function edit_task(req,res){ 
+
+  let query = "UPDATE `tasks` SET `task` = '" +  req.body.task.task + "', `status` = '" + req.body.task.status + "' WHERE `id` = '" + req.params.taskId + "'";
+  console.log(query)     
   db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
@@ -68,6 +67,18 @@ function edit_task(req,res){
             console.log(result);
             res.json({"message":"Task Updated successfully"})
         });
+}
+function update_status(req,res){
+  let query = "UPDATE `tasks` SET  `status` = '" + req.body.status + "' WHERE `id` = '" + req.params.taskId + "'";
+  console.log(query)     
+  // db.query(query, (err, result) => {
+  //           if (err) {
+  //               return res.status(500).send(err);
+  //           }
+  //           console.log(result);
+  //           res.json({"message":"Task Updated successfully"})
+  //       });
+
 }
 function delete_task(req,res){  
   let query= 'DELETE FROM tasks WHERE id = "' + req.params.taskId + '"';
