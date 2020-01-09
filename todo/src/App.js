@@ -6,10 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import PostDetails from './components/PostDetails';
+import TaskForm from './components/TaskForm';
 import {
   Switch,
   Route
 } from "react-router-dom";
+
 class App extends React.Component { 
   state={
        todos:[]
@@ -44,7 +46,8 @@ class App extends React.Component {
     <Navbar />    
         <div className="container">
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/"> 
+            <TaskForm />
           <Todos todos={this.state.todos} markComplete={this.markComplete} deleteItem={this.deleteItem}/>
           </Route>
           <Route path="/about">
