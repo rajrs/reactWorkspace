@@ -22,7 +22,9 @@ class App extends React.Component {
   //to get all task
   getTask(){
     axios.get('http://localhost:3030/tasks')
-    .then(res=>{  const result= res.data.result; this.setState({todos:result})})
+    .then(res=>{  const result= res.data.result; 
+       res= result.map((item) =>{ return {...item,isUpdate:false}});   
+      this.setState({todos:res})})
     .catch(err =>{console.log(err)})
   }
   markComplete =(task)=>{
@@ -41,14 +43,32 @@ class App extends React.Component {
      ).catch(err=>{console.log(err)})
     
    }
+   findArrayIndex(arr,attr,value){
+    return arr.map((item,i)=>{
+  if(item[attr] === value) {return i}
+  else{ return -1}
+  }).filter(item =>{ return item !== -1});
+  }
+   updateItem =(task)=>{ 
+    let  copy = [...this.state.todos];
+    let filterdindex =this.findArrayIndex( copy,'id',task.id)[0]   
+    console.log(filterdindex);
+    copy = copy.map((item) =>{ return {...item,isUpdate:false}}); 
+    
+    copy[filterdindex].isUpdate = !copy[filterdindex].isUpdate
+    this.setState({todos:copy})
+     //task.isUpdate = !task.isUpdate;
+     
+   }
   render(){   
     return (<>   
     <Navbar />    
         <div className="container">
         <Switch>
           <Route exact path="/"> 
+            <h3>Add new Task</h3>
             <TaskForm />
-          <Todos todos={this.state.todos} markComplete={this.markComplete} deleteItem={this.deleteItem}/>
+          <Todos todos={this.state.todos} markComplete={this.markComplete} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
           </Route>
           <Route path="/about">
             <About />

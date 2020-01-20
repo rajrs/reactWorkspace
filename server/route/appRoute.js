@@ -47,14 +47,14 @@ function create_task(req,res){
   let status= req.body.status
   let created_at =new Date().toISOString().slice(0, 19).replace('T', ' ');
   let query = "INSERT INTO `tasks` (task, status, created_at) VALUES ('" + task + "', "+ status +", '" + created_at + "')";
-//  console.log(query)
-  db.query(query,(err,result)=>{
-    if (err) {
-      console.log("error: ", err);
-      return res.status(500).send(err);
-    }
-    res.json({"message":"New task created successfully "})
-  })
+  console.log(query)
+  // db.query(query,(err,result)=>{
+  //   if (err) {
+  //     console.log("error: ", err);
+  //     return res.status(500).send(err);
+  //   }
+  //   res.json({"message":"New task created successfully "})
+  // })
 }
 function edit_task(req,res){ 
 
