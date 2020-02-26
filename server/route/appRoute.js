@@ -24,7 +24,7 @@ app.route('/tasks/:taskId')
         res.send(err)
       }
       res.setHeader('Content-Type', 'application/json');
-      res.json({ result });
+      res.json(result );
     })
   }
   

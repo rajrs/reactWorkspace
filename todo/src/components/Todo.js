@@ -3,8 +3,16 @@ import React from 'react';
 import TodoItem from './TodoItem'
 import PropTypes from 'prop-types'
 const Todos =(props)=>{
-const item = props.todos.map((todo)=>(<TodoItem key={todo.id} todo={todo} markComplete={props.markComplete} updateItem={props.updateItem} deleteItem={props.deleteItem}/>))
-return item
+  console.log('prop'+JSON.stringify(props))
+    //if (props.todos.length) {
+        const item = props.todos.map((todo)=>(<TodoItem key={todo.id} todo={todo}/>))
+        return item
+    //}else{
+      //  return  (<p>no items available</p>)
+      
+    //}
+  
+
 }
 
 // class Todos extends React.Component {   
