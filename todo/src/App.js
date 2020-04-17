@@ -64,7 +64,7 @@ class App extends React.Component {
     return (<>   
     <Navbar />    
         <div className="container">
-          <Counter />
+          {/* <Counter /> */}
         <Switch>
           <Route exact path="/"> 
             <h3>Add new Task</h3>

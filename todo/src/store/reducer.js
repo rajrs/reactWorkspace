@@ -26,13 +26,7 @@ import {
           todos:action.data,      
           loading: true
         }       
-        case MARK_AS_COMPLETED: 
-        return {
-          
-            ...state, 
-            todos:action.data,      
-            loading: true
-          }   
+       
           case DECREMENT: 
         return {          
             ...state, 

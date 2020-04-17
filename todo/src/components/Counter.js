@@ -4,15 +4,17 @@ import { INCREMENT,DECREMENT } from '../store/ActionTypes'
 
 
  class Counter extends Component {
-  increment = () => {
-    // fill in later
-    console.log('from inc')
-    this.props.dispatch({type:INCREMENT})
-  }
-  decrement = () => {
-    // fill in later
-    console.log('from dec')
-    this.props.dispatch({type:DECREMENT})
+  increment = () => {    
+    if(this.props.count >=0){
+      this.props.dispatch({type:INCREMENT})
+    }
+    }
+    
+  decrement = () => {  
+    if(this.props.count >0){
+      this.props.dispatch({type:DECREMENT})
+    }
+    
   }
 
     render() {

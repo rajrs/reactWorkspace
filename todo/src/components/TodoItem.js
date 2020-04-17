@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {UpdateItem} from './UpdateItem'
 import {connect} from'react-redux';
 import PropTypes from 'prop-types'
+import {markAsCompleted,deleteTask} from'../store/ActionTypes'
 import './TodoItem.css'
 export class TodoItem extends Component {
 
@@ -20,8 +21,18 @@ export class TodoItem extends Component {
     EditToggle =()=>{
     return this.props.isUpdate = !this.props.isUpdate;
     }
-    onMarkComplete= (data)=>{
-        console.log(data)
+    onMarkComplete= (task)=>{
+        console.log(task);        
+        (task.status ===1)? task.status=2 : task.status=1;
+        console.log(task);
+        this.props.dispatch(markAsCompleted(task))
+       // console.log(task)
+        //this.props.dispach(markAsCompleted(task))
+        
+    }
+    OnDelete=(id)=>{
+        console.log(id)
+        this.props.dispatch(deleteTask(id))
     }
     
     render() {
@@ -34,7 +45,7 @@ export class TodoItem extends Component {
                     <div className="row">
                         <div className="col-1">                        
                         {/* <input type="checkbox"  checked = {this.checkedOrNot()} onChange={this.props.markComplete.bind(this,{id,task,status})} /> */}
-                        <input type="checkbox"  checked = {this.checkedOrNot()} />
+                        <input type="checkbox"  checked = {this.checkedOrNot()} onClick={()=>this.onMarkComplete({id,task,status})}/>
                         </div>
                         <div className="col-11">
                             <div className="row">                        
@@ -47,7 +58,7 @@ export class TodoItem extends Component {
                                         <span className="btn btn-info" >Edit</span> 
                                         </div>
                                         <div className="col-2">
-                                        <span className="btn btn-danger" >x</span>
+                                        <span className="btn btn-danger" onClick={()=>this.OnDelete(id)}>x</span>
                                         </div>
                                     </div>
                                 </div>

@@ -13,18 +13,18 @@ export const DECREMENT='DECREMENT';
 // export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
 
 const apiUrl='http://localhost:3030/tasks'
+
 /*action creators*/
 
 export const fetchTasks =(data)=> {
-    return{type:FETCH_TASKS ,data    }
+    return{type:FETCH_TASKS ,data }
 }
 
-export const fetchTaskError =(error)=> {
-  return{type:FETCH_TASK_ERROR ,    }
-}
+// export const fetchTaskError =(error)=> {
+//   return{type:FETCH_TASK_ERROR , error   }
+// }
 
-export const fetchTaskData = () => {
-  console.log('fetchTaskData')
+export const fetchTaskData = () => { 
     return dispatch => {
       return axios.get(apiUrl)
         .then(response => {
@@ -37,17 +37,27 @@ export const fetchTaskData = () => {
   };
 export const markComplete=(id)=>{
   return { type:MARK_AS_COMPLETED, id}
+
 }
-   
-
- 
-
-
-
-// mark(task){
-//   (task.status ===1)? task.status=2:task.status=1;
-//   axios.put(`${apiUrl}/${task.id}`,{task})
-//   .then( res=>{  const result= res.data;
-//      console.log(result);
-//      this.getTask()})
-//   .catch(err =>{console.log(err)}
+export const markAsCompleted =(task)=>{
+  return dispatch =>{
+    return axios.put(`${apiUrl}/${task.id}`,{task})
+    .then(response => { console.log(response)
+      dispatch(fetchTaskData())
+    })
+    .catch(error => {
+      throw(error);
+    });
+  }
+}
+export const deleteTask =(taskId)=>{
+  return dispatch =>{ 
+    return axios.delete(`${apiUrl}/${taskId}`)
+    .then(response => { console.log(response)
+      dispatch(fetchTaskData())
+    })
+    .catch(error => {
+      throw(error);
+    });
+  }
+}
