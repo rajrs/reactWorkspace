@@ -1,73 +1,60 @@
 import React, { Component } from 'react'
-import {UpdateItem} from './UpdateItem'
-import {connect} from'react-redux';
-import PropTypes from 'prop-types'
-import {markAsCompleted,deleteTask} from'../store/ActionTypes'
-import './TodoItem.css'
-export class TodoItem extends Component {
 
-    checkStyle=()=>{
-        if(this.props.todo.status !== 1){
-            return 'completed'
-        }
-        return 'not-completed'
+import PropTypes from 'prop-types'
+import {connect} from'react-redux';
+import {markAsCompleted,deleteTask,updateTask} from'../store/ActionTypes'
+import './TodoItem.css'
+import UpdateItem from './UpdateItem';
+export class TodoItem extends Component {
+    isUpdate= true;
+    checkStyle=()=>{   
+        return  (this.props.todo.status !== 1)? 'completed' :'not-completed'; 
     }
     checkedOrNot=()=>{
-        if(this.props.todo.status === 2){
-            return true
-        }
-        return false
+        return (this.props.todo.status === 2)? true:false;        
     }
-    EditToggle =()=>{
-    return this.props.isUpdate = !this.props.isUpdate;
+    OnEditValue =(id)=>{
+        console.log('on edit',id)
+       // this.isUpdate = true;
+    //return this.props.isUpdate = !this.props.isUpdate;
     }
     onMarkComplete= (task)=>{
-        console.log(task);        
-        (task.status ===1)? task.status=2 : task.status=1;
-        console.log(task);
-        this.props.dispatch(markAsCompleted(task))
-       // console.log(task)
-        //this.props.dispach(markAsCompleted(task))
-        
+        //console.log(task);        
+        (task.status ===1)? task.status=2 : task.status=1;       
+        this.props.dispatch(markAsCompleted(task))     
     }
     OnDelete=(id)=>{
-        console.log(id)
+        //console.log(id)
         this.props.dispatch(deleteTask(id))
-    }
-    
+    }    
     render() {
-        const {id,task,status,isUpdate}= this.props.todo;      
+        const {id,task,status}= this.props.todo; 
+      
         return (
-            <div>
-            <div className="row">
-                {(isUpdate )? (  <UpdateItem updateData={this.props.todo}/>):( 
+            <div className="row">                 
                 <div className="showItem col-12" >
-                    <div className="row">
-                        <div className="col-1">                        
-                        {/* <input type="checkbox"  checked = {this.checkedOrNot()} onChange={this.props.markComplete.bind(this,{id,task,status})} /> */}
-                        <input type="checkbox"  checked = {this.checkedOrNot()} onClick={()=>this.onMarkComplete({id,task,status})}/>
-                        </div>
-                        <div className="col-11">
-                            <div className="row">                        
-                                <div className="col-6">
-                                <p className={this.checkStyle()}>{task} <span>status -{status}</span></p>
-                                </div>
-                                <div className="col-6">
-                                    <div className="row">
-                                        <div className="col-2">
-                                        <span className="btn btn-info" >Edit</span> 
-                                        </div>
-                                        <div className="col-2">
-                                        <span className="btn btn-danger" onClick={()=>this.OnDelete(id)}>x</span>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="row">
+                    <div className="col-1">                        
+                    {/* <input type="checkbox"  checked = {this.checkedOrNot()} onChange={this.props.markComplete.bind(this,{id,task,status})} /> */}
+                    <input type="checkbox"  checked={this.checkedOrNot()} onChange={()=>this.onMarkComplete({id,task,status})}/>
+                    </div>
+                    <div className="col-11">
+                        <div className="row">                        
+                            <div className="col-6">
+                            <p className={this.checkStyle() } >{task} <span>status -{status}</span></p>
                             </div>
-                        </div> 
-                     </div>                     
-                    </div>)}       
-                </div>   
-            </div> )
+                            <div className="col-6">
+                            <span className="btn btn-info btn-sm mr-2" onClick={this.OnEditValue.bind(this,id)} >Edit</span> 
+                            <span className="btn btn-danger btn-sm" onClick={()=>this.OnDelete(id)}>x</span>
+                                
+                            </div>
+                        </div>
+                    </div> 
+                    </div>                     
+                </div>  
+                <UpdateItem updateData={this.props.todo}/>                   
+            </div>   
+             )
     
 }
 

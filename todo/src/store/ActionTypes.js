@@ -24,6 +24,9 @@ export const fetchTasks =(data)=> {
 //   return{type:FETCH_TASK_ERROR , error   }
 // }
 
+/*****************************
+GET tasks 
+*****************************/
 export const fetchTaskData = () => { 
     return dispatch => {
       return axios.get(apiUrl)
@@ -35,25 +38,63 @@ export const fetchTaskData = () => {
         });
     };
   };
-export const markComplete=(id)=>{
-  return { type:MARK_AS_COMPLETED, id}
-
-}
-export const markAsCompleted =(task)=>{
-  return dispatch =>{
-    return axios.put(`${apiUrl}/${task.id}`,{task})
-    .then(response => { console.log(response)
+/*****************************
+create new tasks 
+*****************************/
+export const newTask =(task) =>{
+  return dispatch => {
+    return axios.post(`${apiUrl}`,task)
+    .then(response => { 
+      console.log("newTask success" + response)
       dispatch(fetchTaskData())
     })
     .catch(error => {
       throw(error);
     });
   }
+
 }
+/*****************************
+create update  tasks 
+*****************************/
+export const updateTask =(task) =>{
+  return dispatch => {
+    return axios.put(`${apiUrl}/${task.id}`,task)
+    .then(response => { 
+      console.log("edit" + response)
+      dispatch(fetchTaskData())
+    })
+    .catch(error => {
+      throw(error);
+    });
+  }
+
+}
+
+/****************************
+| Mark task as completed    |
+/*****************************/
+  export const markComplete=(id)=>{
+    return { type:MARK_AS_COMPLETED, id}
+  }
+  export const markAsCompleted =(task)=>{
+    return dispatch =>{
+      return axios.put(`${apiUrl}/${task.id}`,{task})
+      .then(response => { 
+        dispatch(fetchTaskData())
+      })
+      .catch(error => {
+        throw(error);
+      });
+    }
+  }
+/****************************
+|       delete task      |
+/*****************************/
 export const deleteTask =(taskId)=>{
   return dispatch =>{ 
     return axios.delete(`${apiUrl}/${taskId}`)
-    .then(response => { console.log(response)
+    .then(response => {       
       dispatch(fetchTaskData())
     })
     .catch(error => {

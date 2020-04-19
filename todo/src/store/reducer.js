@@ -11,8 +11,7 @@ import {
     count:0
   }
   
-  const todoReducer = (state = initialState, action) => {
-    console.log(action)    
+  const todoReducer = (state = initialState, action) => {   
     switch (action.type) {
       case GET_TASKS: 
         return {
@@ -39,8 +38,6 @@ import {
             count:state.count+1  
             
           }   
-       
-
       default:
          return state
     }

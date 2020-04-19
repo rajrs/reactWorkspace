@@ -16,7 +16,6 @@ import { INCREMENT,DECREMENT } from '../store/ActionTypes'
     }
     
   }
-
     render() {
         return (
             <div>
