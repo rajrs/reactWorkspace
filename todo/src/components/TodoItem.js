@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-
 import PropTypes from 'prop-types'
 import {connect} from'react-redux';
-import {markAsCompleted,deleteTask,updateTask} from'../store/ActionTypes'
+import {deleteTask,updateTask} from'../store/ActionTypes'
 import './TodoItem.css'
 import UpdateItem from './UpdateItem';
-export class TodoItem extends Component {
-    isUpdate= true;
+export class TodoItem extends Component {   
     checkStyle=()=>{   
         return  (this.props.todo.status !== 1)? 'completed' :'not-completed'; 
     }
@@ -21,16 +19,15 @@ export class TodoItem extends Component {
     onMarkComplete= (task)=>{
         //console.log(task);        
         (task.status ===1)? task.status=2 : task.status=1;       
-        this.props.dispatch(markAsCompleted(task))     
+        this.props.dispatch(updateTask(task))     
     }
     OnDelete=(id)=>{
         //console.log(id)
         this.props.dispatch(deleteTask(id))
     }    
     render() {
-        const {id,task,status}= this.props.todo; 
-      
-        return (
+        const {id,task,status}= this.props.todo;       
+        return (                
             <div className="row">                 
                 <div className="showItem col-12" >
                 <div className="row">
@@ -52,12 +49,10 @@ export class TodoItem extends Component {
                     </div> 
                     </div>                     
                 </div>  
-                <UpdateItem updateData={this.props.todo}/>                   
+                {/* <UpdateItem updateData={this.props.todo}/>*/}
             </div>   
              )
-    
 }
-
 }
 
 TodoItem.propTypes= {

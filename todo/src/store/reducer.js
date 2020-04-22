@@ -1,5 +1,5 @@
 import {
-    GET_TASKS,FETCH_TASKS,MARK_AS_COMPLETED,INCREMENT,DECREMENT
+    GET_TASKS,FETCH_TASKS,INCREMENT,DECREMENT
   } from './ActionTypes'
  
   const initialState = {
@@ -9,6 +9,7 @@ import {
     users: [],
     error: '',
     count:0
+    
   }
   
   const todoReducer = (state = initialState, action) => {   

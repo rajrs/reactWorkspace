@@ -9,7 +9,7 @@ module.exports = function (app) {
 
   app.route('/tasks/:taskId')
     .get(get_task_by_id)
-    .put(edit_task)
+    .put(edit_task,update_status)
     .delete(delete_task)
 
 function get_all_task(req, res) {    
@@ -53,7 +53,7 @@ function create_task(req,res){
   })
 }
 function edit_task(req,res){
-  console.log(req.body.task)
+  //console.log(req.body.task)
   let query = "UPDATE `tasks` SET `task` = '" +  req.body.task + "', `status` = '" + req.body.status + "' WHERE `id` = '" + req.params.taskId + "'";
    //console.log(query)     
   db.query(query, (err, result) => {
@@ -65,15 +65,16 @@ function edit_task(req,res){
         });
 }
 function update_status(req,res){
+  console.log(req.body)
   let query = "UPDATE `tasks` SET  `status` = '" + req.body.status + "' WHERE `id` = '" + req.params.taskId + "'";
   console.log(query)     
-  // db.query(query, (err, result) => {
-  //           if (err) {
-  //               return res.status(500).send(err);
-  //           }
-  //           console.log(result);
-  //           res.json({"message":"Task Updated successfully"})
-  //       });
+  db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            console.log(result);
+            res.json({"message":"Task Updated successfully"})
+        });
 
 }
 function delete_task(req,res){  

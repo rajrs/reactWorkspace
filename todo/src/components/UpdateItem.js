@@ -15,18 +15,16 @@ export class UpdateItem extends Component {
                 [name]: value
             })
     }
-    saveData(task){
-        console.log(task)
+    saveData(task){     
         this.props.dispatch(updateTask(task))
     }
     render() {
-        console.log("update item"+JSON.stringify(this.state))
+        //console.log("update item"+JSON.stringify(this.state))
         return (           
             <div className="editItemcol-12">
                 <p>{JSON.stringify(this.props.updateData)}</p>               
                     <div className="row">
-                        <div className="col-6">
-                            {/* value={this.state.task} */}
+                        <div className="col-6">                           
                             <input type="text" className="form-control" name="task" onChange={this.handleChange} value={this.state.task}/> 
                         </div>
                         <div className="col-6">

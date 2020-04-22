@@ -20,9 +20,6 @@ export const fetchTasks =(data)=> {
     return{type:FETCH_TASKS ,data }
 }
 
-// export const fetchTaskError =(error)=> {
-//   return{type:FETCH_TASK_ERROR , error   }
-// }
 
 /*****************************
 GET tasks 
@@ -71,23 +68,7 @@ export const updateTask =(task) =>{
 
 }
 
-/****************************
-| Mark task as completed    |
-/*****************************/
-  export const markComplete=(id)=>{
-    return { type:MARK_AS_COMPLETED, id}
-  }
-  export const markAsCompleted =(task)=>{
-    return dispatch =>{
-      return axios.put(`${apiUrl}/${task.id}`,{task})
-      .then(response => { 
-        dispatch(fetchTaskData())
-      })
-      .catch(error => {
-        throw(error);
-      });
-    }
-  }
+
 /****************************
 |       delete task      |
 /*****************************/
