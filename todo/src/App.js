@@ -19,9 +19,7 @@ class App extends React.Component {
         <div className="container">        
         <Switch>
           <Route exact path="/"> 
-              <h3>Add New Task</h3>
-              <TaskForm />
-              {/* <p>{JSON.stringify(this.props)  }</p> */}
+              <TaskForm />             
               <Todos todos={this.props.todos} />
           </Route>
           <Route path="/about"><About /></Route>   

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {connect} from'react-redux';
-import {updateTask} from'../store/ActionTypes'
+import {updateTask,clearBtn} from'../store/ActionTypes'
 export class UpdateItem extends Component {
-  
-    state={
-        id:this.props.updateData.id,
-        task: this.props.updateData.task,
-        status: this.props.updateData.status       
+    constructor(props) {       
+        super(props);
+        this.state={
+            id:this.props.updateData.id,
+            task: this.props.updateData.task,
+            status: this.props.updateData.status       
+        }        
+        this.saveData= this.saveData.bind(this)
     }
+    
     handleChange= (e)=>{
         const name = e.target.name;
         const value = e.target.value;
@@ -15,21 +19,25 @@ export class UpdateItem extends Component {
                 [name]: value
             })
     }
-    saveData(task){     
+    saveData() {       
+        let task = this.state;
         this.props.dispatch(updateTask(task))
+        
+    }
+    ClearBtn= ()=>{
+        this.props.dispatch(clearBtn())
     }
     render() {
-        //console.log("update item"+JSON.stringify(this.state))
-        return (           
+        return (  
             <div className="editItemcol-12">
-                <p>{JSON.stringify(this.props.updateData)}</p>               
+                <div className="h4">Edit Task</div>
                     <div className="row">
-                        <div className="col-6">                           
-                            <input type="text" className="form-control" name="task" onChange={this.handleChange} value={this.state.task}/> 
+                        <div className="col-6 form-group mb-2">                           
+                            <input type="text" className="form-control " name="task" onChange={this.handleChange} value={this.state.task}/> 
                         </div>
                         <div className="col-6">
-                            <span className="btn btn-sm btn-primary mr-2" onClick={()=>{this.saveData(this.state)}} >Update Item</span>
-                            <span className="btn btn-sm btn-light">Cancel</span>
+                            <span className="btn btn-sm btn-primary mr-2" onClick={this.saveData} >Update Item</span>
+                            <span className="btn btn-sm btn-light" onClick={this.ClearBtn}>Cancel</span>
                         </div>
                     </div>
                 </div>

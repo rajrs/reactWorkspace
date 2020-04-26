@@ -5,12 +5,10 @@ export const GET_TASKS='GET_TASKS';
 export const FETCH_TASKS='FETCH_GET_TASKS';
 export const FETCH_TASK_ERROR='FETCH_TASK_ERROR';
 export const MARK_AS_COMPLETED='MARK_AS_COMPLETED';
+export const UPDATE_TASK_BEGIN='UPDATE_TASK_BEGIN';
+export const UPDATE_TASK_END='UPDATE_TASK_END';
 export const INCREMENT='INCREMENT';
 export const DECREMENT='DECREMENT';
-
-// export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST'
-// export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS'
-// export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
 
 const apiUrl='http://localhost:3030/tasks'
 
@@ -18,6 +16,13 @@ const apiUrl='http://localhost:3030/tasks'
 
 export const fetchTasks =(data)=> {
     return{type:FETCH_TASKS ,data }
+}
+export const UpdateTaskBegin =(data)=> {
+  return{type:UPDATE_TASK_BEGIN ,data }
+}
+
+export const UpdateTaskEnd =()=> {
+  return{type:UPDATE_TASK_END }
 }
 
 
@@ -58,17 +63,18 @@ export const updateTask =(task) =>{
   return dispatch => {
     return axios.put(`${apiUrl}/${task.id}`,task)
     .then(response => { 
-      console.log("edit" + response)
+      //console.log("edit" + response)     
       dispatch(fetchTaskData())
+      dispatch(UpdateTaskEnd())
     })
     .catch(error => {
       throw(error);
     });
   }
-
 }
-
-
+export const clearBtn=()=>{
+  return dispatch => {dispatch(UpdateTaskEnd())}
+} 
 /****************************
 |       delete task      |
 /*****************************/

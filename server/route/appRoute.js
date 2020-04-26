@@ -25,7 +25,7 @@ function get_all_task(req, res) {
 }  
 function get_task_by_id(req,res){
   //console.log(`{req.method} ${req.params.taskId} book id${req.params.bookId}`)
-  console.log(`${req.method} ${req.params.taskId}`)
+  //console.log(`${req.method} ${req.params.taskId}`)
   let task_by_id_Query = "SELECT * FROM `tasks` WHERE id ='"+ req.params.taskId + "'";
   //console.log(task_by_id_Query)
   db.query(task_by_id_Query,(err,result)=>{
@@ -38,7 +38,7 @@ function get_task_by_id(req,res){
 })
 }
 function create_task(req,res){
-  console.log('create_task' + JSON.stringify(req.body))
+  //console.log('create_task' + JSON.stringify(req.body))
   let task = req.body.task;
   let status= req.body.status
   let created_at =new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -67,7 +67,7 @@ function edit_task(req,res){
 function update_status(req,res){
   console.log(req.body)
   let query = "UPDATE `tasks` SET  `status` = '" + req.body.status + "' WHERE `id` = '" + req.params.taskId + "'";
-  console.log(query)     
+  //console.log(query)     
   db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);

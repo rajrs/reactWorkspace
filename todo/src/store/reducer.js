@@ -1,5 +1,5 @@
 import {
-    GET_TASKS,FETCH_TASKS,INCREMENT,DECREMENT
+    GET_TASKS,FETCH_TASKS,INCREMENT,DECREMENT,UPDATE_TASK_BEGIN,UPDATE_TASK_END
   } from './ActionTypes'
  
   const initialState = {
@@ -7,6 +7,7 @@ import {
     todos:[{id:1,task:'setup redux',status:'1'}],
     post:[],
     users: [],
+    isUpdate:null,
     error: '',
     count:0
     
@@ -25,7 +26,17 @@ import {
           ...state, 
           todos:action.data,      
           loading: true
-        }       
+        }     
+        case UPDATE_TASK_BEGIN:
+          return {
+            ...state,
+            isUpdate:action.data
+          }  
+          case UPDATE_TASK_END:
+          return {
+            ...state,
+            isUpdate:null
+          }  
        
           case DECREMENT: 
         return {          
