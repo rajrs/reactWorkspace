@@ -1,10 +1,13 @@
 'use strict';
 module.exports = function (app) {
-  var db = require('../db')
-  
+  var db = require('../db') 
+  var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+  let conf= require('../config')  
+  const authorize = require('../_helpers/verifyToken');
   // todoList Routes
+  app.route('/login').post(user_login)
   app.route('/tasks')
-    .get(get_all_task)    
+    .get(authorize,get_all_task)   
     .post(create_task);
 
   app.route('/tasks/:taskId')
@@ -12,7 +15,8 @@ module.exports = function (app) {
     .put(edit_task,update_status)
     .delete(delete_task)
 
-function get_all_task(req, res) {    
+function get_all_task(req, res,next) {  
+ console.log(req.userDetail)
   var query = "select * from tasks";
   db.query(query, (err, result) => {
     if (err) {
@@ -79,7 +83,7 @@ function update_status(req,res){
 }
 function delete_task(req,res){  
   let query= 'DELETE FROM tasks WHERE id = "' + req.params.taskId + '"';
-  console.log(query);
+ // console.log(query);
   db.query(query, (err, result) => {
     if (err) {
         return res.status(500).send(err);
@@ -89,4 +93,32 @@ function delete_task(req,res){
 });
   
 }
+function user_login(req,res){
+//select * from user where email="raj@gmail.com" and password= "test" and user_id=1
+let query = 'select user_id,username,email from user where email="'+req.body.email+'" and password="'+req.body.password+'"';
+  // if user is found and password is valid
+    // create a token
+    //console.log(query)
+   // res.status(200).send({message:'test success'})
+    db.query(query, (err, result) => {
+      if (err) {
+          return res.status(500).send(err);
+      }     
+      console.log(result)
+      if(result.length){
+      
+        var token = jwt.sign({ id: result[0].user_id }, conf.secret, {
+          expiresIn: 86400 // expires in 24 hours
+        });      
+        // return the information including token as JSON
+        res.status(200).send({ auth: true, token: token ,user:result[0]});
+      }
+      else{
+        res.status(200).send({ auth: false, message:"username or password is worng"});
+      }
+     
+    });  
+  
+}
+
 };

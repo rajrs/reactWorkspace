@@ -7,7 +7,8 @@ export class UpdateItem extends Component {
         this.state={
             id:this.props.updateData.id,
             task: this.props.updateData.task,
-            status: this.props.updateData.status       
+            status: this.props.updateData.status
+               
         }        
         this.saveData= this.saveData.bind(this)
     }

@@ -7,17 +7,24 @@ export  class TaskForm extends Component {
         super(props);
         this.state = {          
             task: '',
-            status: '1'
+            status: '1',
+            formErrors: {task: ''},
+            taskValid: false,          
+            formValid: false
         }
         this.handleUserInput = this.handleUserInput.bind(this)
-        this.submitForm = this.submitForm.bind(this)
+        this.submitForm = this.submitForm.bind(this)    
     } 
+    validateField(fieldName, value) {       
+        console.log(fieldName,value)
+    }
     handleUserInput = (e) => {
         const name = e.target.name;
-        const value = e.target.value;
-        this.setState({[name]: value});
+        const value = e.target.value;       
+        this.validateField(name, value) ;
+        this.setState({[name]: value},()=>{ this.validateField(name,value)} );
     }  
-    submitForm(e){   
+    submitForm(e){          
         e.preventDefault();
         let taskData= {task:this.state.task, status:this.state.status}     
         this.props.dispatch(newTask(taskData))
@@ -26,11 +33,13 @@ export  class TaskForm extends Component {
 render() {
     return (this.props.isUpdate === null)? (<div>
         <h4>Add New Task</h4>
-            <div className="form-inline">
+        <p>{this.state.task}</p>
+            <div className="form-inline">                   
                 <div className="form-group mb-2" >       
                     <label htmlFor="task"  className ="sr-only" > Task </label> 
                     <input type="text"   value={ this.state.task} onChange={this.handleUserInput.bind(this)}
                     className="form-control"    name="task" id="task" placeholder = "Enter your task" />
+                   
                 </div> 
                 <div className="form-group mx-sm-3 mb-2 d-none" >
                     <label htmlFor="status"  className = "sr-only" > status </label>

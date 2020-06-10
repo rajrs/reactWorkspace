@@ -9,6 +9,7 @@ import {
     users: [],
     isUpdate:null,
     error: '',
+    isAuth:false,
     count:0
     
   }
