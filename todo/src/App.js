@@ -11,8 +11,10 @@ import TaskForm from './components/TaskForm';
 import {  Switch,  Route} from "react-router-dom";
 import {connect} from'react-redux';
 import {fetchTaskData} from'./store/ActionTypes'
+import { Login } from './components/login';
 
 class App extends React.Component { 
+
   render(){   
     return (<>   
         <Navbar />    
@@ -23,6 +25,7 @@ class App extends React.Component {
               <Todos todos={this.props.todos} />
           </Route>
           <Route path="/about"><About /></Route>   
+          <Route path="/login"><Login  dispatch={this.props.dispatch} /></Route>   
           <Route path="/PostDetails/:postID" component={PostDetails} />
         </Switch>
       </div>     
@@ -32,7 +35,9 @@ class App extends React.Component {
   
 }
 const mapStatetoProp=(state)=>{ 
-  return {todos:state.todos}
+  return {todos:state.todos,isAuth:state.isAuth}
 }
 
-export default connect(mapStatetoProp,fetchTaskData())(App);
+//export default connect(mapStatetoProp,fetchTaskData())(App);
+export default connect(mapStatetoProp,null)(App);
+

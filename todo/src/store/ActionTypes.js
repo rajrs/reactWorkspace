@@ -1,4 +1,5 @@
 import axios from "axios";
+import { history } from '../_helpers';
 /*https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao*/
 /*action types*/
 export const GET_TASKS='GET_TASKS';
@@ -7,15 +8,21 @@ export const FETCH_TASK_ERROR='FETCH_TASK_ERROR';
 export const MARK_AS_COMPLETED='MARK_AS_COMPLETED';
 export const UPDATE_TASK_BEGIN='UPDATE_TASK_BEGIN';
 export const UPDATE_TASK_END='UPDATE_TASK_END';
+export const SET_USER= 'SET_USER'
+export const UNSET_USER= 'UNSET_USER'
 export const INCREMENT='INCREMENT';
 export const DECREMENT='DECREMENT';
 
-const apiUrl='http://localhost:3030/tasks'
+const apiUrl='http://localhost:3030/tasks';
+
 
 /*action creators*/
 
 export const fetchTasks =(data)=> {
     return{type:FETCH_TASKS ,data }
+}
+export const setUser =(data)=>{
+  return {type:SET_USER,data}
 }
 export const UpdateTaskBegin =(data)=> {
   return{type:UPDATE_TASK_BEGIN ,data }
@@ -25,6 +32,22 @@ export const UpdateTaskEnd =()=> {
   return{type:UPDATE_TASK_END }
 }
 
+/*****************************
+GET tasks 
+*****************************/
+export const UserLogin= (logindata)=>{
+  debugger;
+  return dispatch =>{
+    return axios.post('http://localhost:3030/login',logindata)
+      .then(response =>{ 
+        dispatch(setUser(response.data))
+        history.push('/');
+      })
+      .catch(error => {
+        throw(error);
+      });
+      }
+}
 
 /*****************************
 GET tasks 

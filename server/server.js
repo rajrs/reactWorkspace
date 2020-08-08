@@ -5,21 +5,25 @@
   var express = require('express'),
   cors = require('cors'),
   jwt = require('_helpers/jwt'),
+  helmet = require('helmet'),
+  morgan = require('morgan'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 3030,
-   errorHandler = require('_helpers/error-handler')
+  errorHandler = require('_helpers/error-handler')
   app = express();
 
   var server= app.listen(port);
   console.log('API server started on: ' + port);
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(helmet());
+  app.use(morgan('combined'));
   app.use(bodyParser.json());
-  app.use(cors());
-
+  app.use(cors()); 
+ 
   //importing route
   var routes = require('./route/appRoute'); 
   //register the route
-    routes(app); 
+  routes(app); 
 
 
 

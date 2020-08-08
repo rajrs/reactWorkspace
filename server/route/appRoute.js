@@ -95,21 +95,22 @@ function delete_task(req,res){
 }
 function user_login(req,res){
 //select * from user where email="raj@gmail.com" and password= "test" and user_id=1
+console.log('---------api_user_login---------');
+console.log(req.body);
+console.log(req.body.email)
+console.log(req.body.password)
 let query = 'select user_id,username,email from user where email="'+req.body.email+'" and password="'+req.body.password+'"';
   // if user is found and password is valid
     // create a token
-    //console.log(query)
-   // res.status(200).send({message:'test success'})
+   
+    console.log(query)    
     db.query(query, (err, result) => {
       if (err) {
-          return res.status(500).send(err);
+        return res.status(500).send(err);
       }     
       console.log(result)
-      if(result.length){
-      
-        var token = jwt.sign({ id: result[0].user_id }, conf.secret, {
-          expiresIn: 86400 // expires in 24 hours
-        });      
+      if(result.length){      
+        var token = jwt.sign({ id: result[0].user_id }, conf.secret, {expiresIn: 86400 });       
         // return the information including token as JSON
         res.status(200).send({ auth: true, token: token ,user:result[0]});
       }

@@ -1,12 +1,12 @@
 import {
-    GET_TASKS,FETCH_TASKS,INCREMENT,DECREMENT,UPDATE_TASK_BEGIN,UPDATE_TASK_END
+    GET_TASKS,FETCH_TASKS,INCREMENT,DECREMENT,UPDATE_TASK_BEGIN,UPDATE_TASK_END,SET_USER,UNSET_USER
   } from './ActionTypes'
  
   const initialState = {
     loading: false,
     todos:[{id:1,task:'setup redux',status:'1'}],
     post:[],
-    users: [],
+    user: null,
     isUpdate:null,
     error: '',
     isAuth:false,
@@ -38,8 +38,13 @@ import {
             ...state,
             isUpdate:null
           }  
-       
-          case DECREMENT: 
+       case SET_USER:
+         return{...state, isAuth:true,user:action.data         
+       }
+       case UNSET_USER:
+         return {...state,isAuth:false,user:null}
+        
+         case DECREMENT: 
         return {          
             ...state, 
             count:state.count-1  
