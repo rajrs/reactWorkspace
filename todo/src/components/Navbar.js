@@ -15,10 +15,13 @@ return (<>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto">{this.props.isAuth &&(<>
                 <li className="nav-item active">
-                    <Link className="nav-link" to="/">Home</Link>                   
-                </li>{
+                    <Link className="nav-link" to="/">My Task</Link>                   
+                </li>
+            </>)}
+          
+                {
                      !this.props.isAuth   &&  (<>
                      <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
                      <li className="nav-item"><Link className="nav-link" to="/register">Register</Link></li>
@@ -31,8 +34,8 @@ return (<>
                      <Link className="nav-link" to="/about">Contact</Link>                   
                 </li>
             </ul>{ this.props.isAuth && (<>  <ul className="navbar-nav  navbar-nav align-items-center ml-auto">
-               <li> <a  href="#" className="nav-link">userName</a></li>
-               <li> <a  href="#" className="nav-link">Logout</a></li>
+               <li>   <Link className="nav-link" to="#">userName</Link>  </li>
+               <li>  <Link className="nav-link" to="#">Logout</Link> </li>
            </ul></>)}
           
         </div>

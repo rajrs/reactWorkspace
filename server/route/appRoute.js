@@ -115,9 +115,9 @@ let query = 'select user_id,username,email from user where email="'+req.body.ema
         res.status(200).send({ auth: true, token: token ,user:result[0]});
       }
       else{
-        res.status(200).send({ auth: false, message:"username or password is worng"});
-      }
-     
+        console.log('else case auth:false')
+        res.status(500).send({ auth: false, message:"username or password is worng"});
+      }     
     });  
   
 }

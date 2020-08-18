@@ -6,15 +6,13 @@ class PostDetails extends Component {
         const { match: { params } } = this.props;      
         axios.get(`https://jsonplaceholder.typicode.com/posts/${params.postID}`)
           .then(({ data: postDetail }) => {
-            console.log('postDetail', postDetail);
-      
+            console.log('postDetail', postDetail);      
             this.setState({ postDetail });
           });
       }
     render(){
         console.log(this.props);
-        const {id:dataId ,title,body} = this.state.postDetail;
-      
+        const {id:dataId ,title,body} = this.state.postDetail;      
         console.log(dataId,title,body)
     return <>
     
