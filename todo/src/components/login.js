@@ -23,6 +23,7 @@ export class Login extends Component {
     }
     render (){
         return (<div>
+             {/* <p>{JSON.stringify(this.props.route)}</p> */}
             <p>{JSON.stringify(this.state)}</p>
                     <h3>login</h3>
                     <label>Email</label>
@@ -37,6 +38,11 @@ export class Login extends Component {
                 </div>)
     }
 }
-const mapDispatchToProps = dispatch=>{ return{loginAction: bindActionCreators({UserLogin},dispatch)}}
-
+// function mapDispatchToProps(dispatch) {
+//     return bindActionCreators({
+//         loginAction: UserLogin,        
+//       }, dispatch);
+//   }
 export default connect()(Login);   
+
+

@@ -40,6 +40,9 @@ export const UserLogin= (logindata)=>{
   return dispatch =>{
     return axios.post('http://localhost:3030/login',logindata)
       .then(response =>{ 
+        console.log(response.data.token,response.data.user)       
+        const {token} =response.data;
+        localStorage.setItem('user', JSON.stringify(token));
         dispatch(setUser(response.data))
         history.push('/');
       })

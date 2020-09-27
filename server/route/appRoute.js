@@ -16,7 +16,7 @@ module.exports = function (app) {
     .delete(delete_task)
 
 function get_all_task(req, res,next) {  
- console.log(req.userDetail)
+ console.log(req.userDetail.id)
   var query = "select * from tasks";
   db.query(query, (err, result) => {
     if (err) {
