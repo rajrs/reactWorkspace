@@ -36,15 +36,16 @@ export const UpdateTaskEnd =()=> {
 GET tasks 
 *****************************/
 export const UserLogin= (logindata)=>{
-  debugger;
+  //debugger;
   return dispatch =>{
     return axios.post('http://localhost:3030/login',logindata)
       .then(response =>{ 
-        console.log(response.data.token,response.data.user)       
+        console.log(response.data.token,response.data.user)  
+        console.log(history)     
         const {token} =response.data;
         localStorage.setItem('user', JSON.stringify(token));
         dispatch(setUser(response.data))
-        history.push('/');
+        history.push('/home');
       })
       .catch(error => {
         throw(error);

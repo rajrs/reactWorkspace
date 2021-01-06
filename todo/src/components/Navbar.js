@@ -34,7 +34,7 @@ return (<>
                      <Link className="nav-link" to="/about">Contact</Link>                   
                 </li>
             </ul>{ this.props.isAuth && (<>  <ul className="navbar-nav  navbar-nav align-items-center ml-auto">
-            <li>   <Link className="nav-link" to="#">{this.props.userDetail}</Link>  </li>
+            <li>   <Link className="nav-link" to="#">user details</Link>  </li>
                <li>  <Link className="nav-link" to="#">Logout</Link> </li>
            </ul></>)}
           

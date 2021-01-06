@@ -11,9 +11,9 @@ import {  Switch,  Router,Route} from "react-router-dom";
 import {connect} from'react-redux';
 //import {fetchTaskData} from'./store/ActionTypes'
 import { Login } from './components/login';
-import HomePage from './components/HomePage'
+import HomePage from './components/HomePage';
 import { PrivateRoute } from './components/privateRoute';
-
+import { withRouter } from "react-router";
 
 class App extends React.Component { 
 constructor(props) {
@@ -24,11 +24,13 @@ constructor(props) {
   render(){
     const AppContainer =(props)=> (<>    
       <Navbar />    
-      <div className="container">   
-      <Switch >    
-          <PrivateRoute exact path="/" component={HomePage} />
+      <div className="container">  
+     
+      <div>You are now at {JSON.stringify(props)}</div>
+      <Switch>    
+          <PrivateRoute exact path="/home" component={HomePage} />
           <Route path="/about" component={About} />   
-          <Route path="/login" render={ () => <Login  {...this.props}/> }  />   
+          <Route path="/" render={ () => <Login  {...this.props}/> }  />   
           <Route path="/PostDetails/:postID" component={PostDetails} />         
         </Switch>             
     </div>     
@@ -42,5 +44,6 @@ constructor(props) {
 
 //export default connect(mapStatetoProp,fetchTaskData())(App);
 
-export default connect()(App);
+export default withRouter(connect()(App));
 
+//withRouter(connect(mapStateToProps, mapDispatchToAction)(App));
